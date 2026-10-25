@@ -19,7 +19,11 @@
   --t1:#f1f5f9;--t2:#cbd5e1;--t3:#94a3b8;--t4:#64748b;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden}
+html,body{
+  min-height:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
 body{
   font-family:'Inter',system-ui,sans-serif;
   background:var(--bg);color:var(--t1);
@@ -35,7 +39,8 @@ body::before{
 .app{
   position:relative;z-index:1;
   display:flex;flex-direction:column;
-  height:100vh;padding:10px;gap:10px;
+  min-height:100vh;
+  padding:10px;gap:10px;
 }
 
 .topbar{
@@ -111,7 +116,6 @@ input[type=range]::-webkit-slider-thumb{
 }
 input[type=range]::-moz-range-thumb{width:12px;height:12px;border:none;border-radius:50%;background:var(--purple)}
 
-/* ── CONSOLE ── */
 .console{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:0}
 .panel{
   position:relative;border:1px solid var(--line);border-radius:12px;padding:10px;
@@ -131,7 +135,6 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border:none;border-ra
 .count{font-size:8px;color:var(--t3);padding:3px 6px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03)}
 .mini-btn{font-size:8px;padding:4px 7px}
 
-/* ── GRIDS: fixed rows, no gaps ── */
 .grid-music{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -149,7 +152,6 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border:none;border-ra
   min-height:0;
 }
 
-/* ── PADS: fill cells completely ── */
 .pad{
   position:relative;
   border-radius:8px;
@@ -273,7 +275,6 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border:none;border-ra
   .console{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  .app{padding:8px;gap:8px}
   .console{grid-template-columns:1fr;gap:8px}
   .grid-music{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:6px}
   .grid-fx{grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(4,1fr);gap:5px}
@@ -684,7 +685,7 @@ $('stopMusic').onclick=()=>{for(let i=0;i<16;i++)stopMusic(i);};
 $('stopFx').onclick=()=>{for(let i=0;i<32;i++)fInst[i]?.stop();};
 $('masterVol').oninput=e=>{const v=+e.target.value;$('volVal').textContent=v+' dB';if(masterGain)masterGain.volume.value=v;};
 
-const KEY='plvpad_dark_v5';
+const KEY='plvpad_dark_v6';
 $('saveBtn').onclick=()=>{
   const name=prompt('Template name:','My PLV Set');if(!name)return;
   const data={name,music,fx,savedAt:new Date().toISOString()};
